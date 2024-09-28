@@ -8,6 +8,7 @@ const CompanyModule = require('./../_modules/company/company.module');
 const ApplicationModule = require('./../_modules/application/application.module');
 const CandidateModule = require('./../_modules/candidate/candidate.module');
 const JobModule = require('./../_modules/job/job.module');
+const UserModule = require('./../_modules/user/user.module');
 
 module.exports = [
     {
@@ -30,5 +31,6 @@ module.exports = [
     CompanyModule,
     ApplicationModule,
     CandidateModule,
-    JobModule
+    JobModule,
+    UserModule
 ];
