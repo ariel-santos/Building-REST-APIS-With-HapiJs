@@ -5,8 +5,8 @@ const HapiSwagger = require('hapi-swagger');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const Pack = require('./package');
+const MongoosePlugin = require('./_plugins/mongoose.plugin');
 
-const mongoDbUri = 'mongodb://localhost:27017/hapi_db';
 const companyRoutes = require('./_controllers/company.routes');
 
 const init = async () => {
@@ -15,31 +15,30 @@ const init = async () => {
         host: 'localhost'
     });
 
-    mongoose.connect(mongoDbUri, {});
-    mongoose.connection.on('connected', () => {
-        console.log('app is conected', mongoDbUri);
-    });
-    mongoose.connection.on('error', err => {
-        console.log('Error', err);
-    });
-
+    // ROUTES
     server.route(companyRoutes);
 
-    const swaggerOptions = {
-        info: {
-            title: 'Test API Documentation',
-            version: Pack.version,
-        },
-    };
-
+    // PLUGINS
     await server.register([
+        {
+            plugin: MongoosePlugin,
+            options: {
+                mongoDbUri: 'mongodb://localhost:27017/hapi_db'
+            }
+        },
         Inert,
         Vision,
         {
             plugin: HapiSwagger,
-            options: swaggerOptions
+            options: {
+                info: {
+                    title: 'Test API Documentation',
+                    version: Pack.version,
+                },
+            }
         }
-    ])
+    ]);
+
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };

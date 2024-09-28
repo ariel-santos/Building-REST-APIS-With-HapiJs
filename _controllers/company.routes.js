@@ -23,7 +23,10 @@ module.exports = [
     {
         method: 'GET',
         path: '/api/companies',
-        handler: CompanyController.find
+        handler: CompanyController.find,
+        options: {
+            tags: ['api']
+        }
     },
     {
         method: 'GET',
