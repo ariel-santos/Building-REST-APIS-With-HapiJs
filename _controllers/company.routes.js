@@ -11,7 +11,7 @@ module.exports = [
         method: 'POST',
         path: '/api/companies',
         handler: CompanyController.create,
-        config: {
+        options: {
             validate: {
                 payload: schema
             }
@@ -25,16 +25,37 @@ module.exports = [
     {
         method: 'GET',
         path: '/api/companies/{id}',
-        handler: CompanyController.findOne
+        handler: CompanyController.findOne,
+        options:{
+            validate: {
+                params: Joi.object().keys({
+                    id: Joi.string().required()
+                })
+            }
+        }
     },
     {
         method: 'PUT',
         path: '/api/companies/{id}',
-        handler: CompanyController.update
+        handler: CompanyController.update,
+        options:{
+            validate: {
+                params: Joi.object().keys({
+                    id: Joi.string().required()
+                })
+            }
+        }
     },
     {
         method: 'DELETE',
         path: '/api/companies/{id}',
-        handler: CompanyController.delete
+        handler: CompanyController.delete,
+        options:{
+            validate: {
+                params: Joi.object().keys({
+                    id: Joi.string().required()
+                })
+            }
+        }
     }
 ];

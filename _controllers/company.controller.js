@@ -31,9 +31,6 @@ module.exports = {
         return h.response(list);
     },
     async findOne(req, h) {
-        if (!req.params.id) {
-            return h.response({err: true, msg: 'id is required'}).code(404);
-        }
 
         const company = await Company.findById(req.params.id)
         .catch((err) => {
@@ -46,9 +43,6 @@ module.exports = {
         return h.response(company);
     },
     async update(req, h) {
-        if (!req.params.id) {
-            return h.response({err: true, msg: 'id is required'}).code(404);
-        }
         let attr = {};
         if (!req.payload){
             return h.response({ err: true, msg: 'payload vazio'});
@@ -74,12 +68,6 @@ module.exports = {
         return h.response(company);
     },
     async delete(req, h) {
-        if (!req.params.id) {
-            h.response({
-                err: true,
-                msg: 'id is required'
-            }).code(404);
-        }
 
         const companies = await Company.findByIdAndDelete(req.params.id)
         .catch((err) => {
