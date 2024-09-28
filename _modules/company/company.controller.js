@@ -1,4 +1,4 @@
-const Company = require('../_models/company.model');
+const Company = require('./company.model');
 
 module.exports = {
     async create(req, h) {

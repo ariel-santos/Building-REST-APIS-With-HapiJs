@@ -7,7 +7,8 @@ const Vision = require('@hapi/vision');
 const Pack = require('./package');
 const MongoosePlugin = require('./_plugins/mongoose.plugin');
 
-const companyRoutes = require('./_controllers/company.routes');
+// const companyRoutes = require('./_controllers/company.routes');
+const CompanyModule = require('./_modules/company/company.module');
 
 const init = async () => {
     const server = Hapi.server({
@@ -16,7 +17,7 @@ const init = async () => {
     });
 
     // ROUTES
-    server.route(companyRoutes);
+    // server.route(companyRoutes);
 
     // PLUGINS
     await server.register([
@@ -36,7 +37,8 @@ const init = async () => {
                     version: Pack.version,
                 },
             }
-        }
+        },
+        CompanyModule
     ]);
 
     await server.start();

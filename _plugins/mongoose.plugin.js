@@ -8,6 +8,7 @@ const MongoosePlugin = {
         mongoose.connection.on('error', err => {
             console.log('Error', err);
         });
+        next;
     },
     name: 'MongoosePlugin',
     pkh: require('../package.json')
