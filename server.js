@@ -120,6 +120,31 @@ const init = async () => {
             return h.response(company);
         }
     });
+    server.route({
+        method: 'DELETE',
+        path: '/api/companies/{id}',
+        handler: async (req, h) => {
+            if (!req.params.id) {
+                h.response({
+                    err: true,
+                    msg: 'id is required'
+                }).code(404);
+            }
+
+            const companies = await Company.findByIdAndDelete(req.params.id)
+            .catch((err) => {
+                console.log('ERROR', 'DELETE', '/api/companies/{id}');
+                console.log(err);
+                return h.response({
+                    erro: true
+                }).code(550);
+            });
+            return h.response({
+                err: false,
+                msg: 'Deleted ' + req.params.id
+            });
+        }
+    })
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
