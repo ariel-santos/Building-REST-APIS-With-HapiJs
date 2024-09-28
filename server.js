@@ -88,6 +88,38 @@ const init = async () => {
         }
     });
 
+    server.route({
+        method: 'PUT',
+        path: '/api/companies/{id}',
+        handler: async (req, h) => {
+            if (!req.params.id) {
+                return h.response({err: true, msg: 'id is required'}).code(404);
+            }
+            let attr = {};
+            if (!req.payload){
+                return h.response({ err: true, msg: 'payload vazio'});
+            }
+            if (req.payload.name) {
+                attr.name = req.payload.name;
+            }
+            if (req.payload.city) {
+                attr.city = req.payload.city;
+            }
+            if (req.payload.address) {
+                attr.address = req.payload.address;
+            }
+
+            const company = await Company.findByIdAndUpdate(req.params.id, attr, {returnDocument: 'after'})
+            .catch((err) => {
+                console.log('ERROR', 'PUT', '/api/companies');
+                console.log(err);
+                return h.response({
+                    erro: true
+                }).code(550);
+            });
+            return h.response(company);
+        }
+    });
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
