@@ -18,16 +18,6 @@ const init = async () => {
         console.log('Error', err);
     });
 
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, reply) => {
-            return {
-                id: 1,
-                nome: 'nome'
-            };
-        }
-    });
     server.route(companyRoutes);
 
     await server.start();

@@ -2,17 +2,17 @@ const Company = require('../_models/company.model');
 
 module.exports = {
     async create(req, h) {
-        if(!request.payload.name) {
-            return h.response({
-                code: 1,
-                err: 'name is required'
-            }).code(550);
-        }
+        // if(!request.payload.name) {
+        //     return h.response({
+        //         code: 1,
+        //         err: 'name is required'
+        //     }).code(550);
+        // }
 
         const company = new Company({
-            name: request.payload.name,
-            city: request.payload.city,
-            address: request.payload.address
+            name: req.payload.name,
+            city: req.payload.city,
+            address: req.payload.address
         });
 
         const saved = await company.save();

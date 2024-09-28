@@ -1,10 +1,21 @@
+const Joi = require('joi');
 const CompanyController = require('./company.controller');
+const schema = Joi.object().keys({
+    name: Joi.string().required(),
+    city: Joi.string().required(),
+    address: Joi.string().optional()
+});
 
 module.exports = [
     {
         method: 'POST',
         path: '/api/companies',
-        handler: CompanyController.create
+        handler: CompanyController.create,
+        config: {
+            validate: {
+                payload: schema
+            }
+        }
     },
     {
         method: 'GET',
