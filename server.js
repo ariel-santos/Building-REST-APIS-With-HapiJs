@@ -29,13 +29,14 @@ const init = async () => {
     });
 
     const Company = require('./_models/company.model');
+    Company.events.on('error', err => console.log('Company', err.message));
     server.route({
         method: 'POST',
         path: '/api/companies',
         handler: async (request, h) => {
             if(!request.payload.name) {
                 return h.response({
-                    code: 1, 
+                    code: 1,
                     err: 'name is required'
                 }).code(550);
             }
@@ -46,15 +47,44 @@ const init = async () => {
                 address: request.payload.address
             });
 
-            // await company.save((err, saved) => {
-            //     if (err) {
-            //         return h.response(err).code(550);
-            //     }
-            //     return h.response(saved);
-            //     return reply(saved.id);
-            // });
             const saved = await company.save();
             return h.response(saved);
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/api/companies',
+        handler: async (req, h) => {
+            // {_id: 'Not a valid ObjectId' }
+            const list = await Company.find()
+            .catch((err) => {
+                console.log('ERROR', 'GET', '/api/companies');
+                console.log(err);
+                return h.response({
+                    erro: true
+                }).code(550);
+            });
+            return h.response(list);
+        }
+    });
+    server.route({
+        method: 'GET',
+        path: '/api/companies/{id}',
+        handler: async (req, h) => {
+            if (!req.params.id) {
+                return h.response({err: true, msg: 'id is required'}).code(404);
+            }
+
+            const company = await Company.findById(req.params.id)
+            .catch((err) => {
+                console.log('ERROR', 'GET', '/api/companies/{id}');
+                console.log(err);
+                return h.response({
+                    erro: true
+                }).code(550);
+            });
+            return h.response(company);
         }
     });
 
