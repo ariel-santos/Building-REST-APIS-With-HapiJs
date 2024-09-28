@@ -12,6 +12,9 @@ module.exports = [
         path: '/api/companies',
         handler: CompanyController.create,
         options: {
+            tags: ['api'],
+            description: 'List of companies',
+            notes: 'Returns a todo item by the id passed in the path',
             validate: {
                 payload: schema
             }
@@ -27,6 +30,7 @@ module.exports = [
         path: '/api/companies/{id}',
         handler: CompanyController.findOne,
         options:{
+            tags: ['api'],
             validate: {
                 params: Joi.object().keys({
                     id: Joi.string().required()
@@ -39,6 +43,7 @@ module.exports = [
         path: '/api/companies/{id}',
         handler: CompanyController.update,
         options:{
+            tags: ['api'],
             validate: {
                 params: Joi.object().keys({
                     id: Joi.string().required()
@@ -51,6 +56,7 @@ module.exports = [
         path: '/api/companies/{id}',
         handler: CompanyController.delete,
         options:{
+            tags: ['api'],
             validate: {
                 params: Joi.object().keys({
                     id: Joi.string().required()
