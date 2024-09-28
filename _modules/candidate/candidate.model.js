@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const CandidateSchema = new Schema({
+    first_name: {
+        required: true,
+        type: String
+    },
+    last_name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    }
+});
+
+module.exports = mongoose.model('Candidate', CandidateSchema);

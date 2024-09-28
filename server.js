@@ -10,6 +10,8 @@ const MongoosePlugin = require('./_plugins/mongoose.plugin');
 // const companyRoutes = require('./_controllers/company.routes');
 const CompanyModule = require('./_modules/company/company.module');
 const ApplicationModule = require('./_modules/application/application.module');
+const CandidateModule = require('./_modules/candidate/candidate.module');
+const JobModule = require('./_modules/job/job.module');
 
 const init = async () => {
     const server = Hapi.server({
@@ -40,7 +42,9 @@ const init = async () => {
             }
         },
         CompanyModule,
-        ApplicationModule
+        ApplicationModule,
+        CandidateModule,
+        JobModule
     ]);
 
     await server.start();
