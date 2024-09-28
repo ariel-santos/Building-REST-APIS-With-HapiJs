@@ -6,8 +6,4 @@ const CompanyModule = {
     }
 }
 
-CompanyModule.register.attributes = {
-
-}
-
 module.exports = CompanyModule;

@@ -9,6 +9,7 @@ const MongoosePlugin = require('./_plugins/mongoose.plugin');
 
 // const companyRoutes = require('./_controllers/company.routes');
 const CompanyModule = require('./_modules/company/company.module');
+const ApplicationModule = require('./_modules/application/application.module');
 
 const init = async () => {
     const server = Hapi.server({
@@ -38,7 +39,8 @@ const init = async () => {
                 },
             }
         },
-        CompanyModule
+        CompanyModule,
+        ApplicationModule
     ]);
 
     await server.start();
