@@ -4,7 +4,17 @@ const Company = require('./../company/company.model');
 module.exports = {
 
     async find(req, h) {
-        return h.response('Candidate not implemented');
+        const candidate = await Candidate.find()
+        .populate('company') // objecto completo 
+        .catch((err) => {
+            console.log('ERROR', 'CANDIDATE', 'FIND');
+            console.log(err);
+            return h.response({
+                erro: true
+            }).code(550);
+        });
+
+        return h.response(candidate);
     },
     async create(req, h) {
         const candidate = await Candidate.create({
