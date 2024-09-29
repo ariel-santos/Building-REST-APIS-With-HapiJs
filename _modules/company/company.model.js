@@ -6,7 +6,13 @@ const CompanySchema = new Schema({
         type: String
     },
     city: String,
-    address: String
+    address: String,
+    condidates: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Candidate'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Company', CompanySchema);

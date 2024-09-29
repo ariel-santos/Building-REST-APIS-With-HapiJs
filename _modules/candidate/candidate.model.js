@@ -12,6 +12,11 @@ const CandidateSchema = new Schema({
     email: {
         type: String,
         required: true
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
     }
 });
 
