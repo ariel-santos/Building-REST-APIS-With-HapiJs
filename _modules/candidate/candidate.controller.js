@@ -1,4 +1,5 @@
 const Candidate = require('./candidate.model');
+const Company = require('./../company/company.model');
 
 module.exports = {
 
@@ -18,6 +19,18 @@ module.exports = {
                 erro: true
             }).code(550);
         });
+
+        const _company =  await Company.findById(req.payload.company)
+        .catch((err) => {
+            console.log('ERROR', 'CANDIDATE', 'CREATE');
+            console.log(err);
+            return h.response({
+                erro: true
+            }).code(550);
+        });
+        _company.candidates.push(candidate);
+        _company.save();
+
         return h.response(candidate);
     }
 };

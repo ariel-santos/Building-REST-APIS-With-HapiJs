@@ -7,7 +7,7 @@ const CompanySchema = new Schema({
     },
     city: String,
     address: String,
-    condidates: [
+    candidates: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Candidate'
