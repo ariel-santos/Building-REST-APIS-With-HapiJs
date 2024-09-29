@@ -12,6 +12,12 @@ const CompanySchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Candidate'
         }
+    ],
+    jobs: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Job'
+        }
     ]
 });
 

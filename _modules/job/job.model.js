@@ -4,6 +4,11 @@ const JobSchema = new Schema({
     title: {
         required: true,
         type: String
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Company'
     }
 });
 
