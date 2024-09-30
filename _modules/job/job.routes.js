@@ -4,7 +4,7 @@ const Joi = require('joi');
 module.exports = [
     {
         method: 'GET',
-        path: '/api/jobs',
+        path: '/jobs',
         handler: JobController.find,
         options: {
             tags: ['api']
@@ -12,11 +12,14 @@ module.exports = [
     },
     {
         method: 'POST',
-        path: '/api/jobs',
+        path: '/jobs',
         handler: JobController.create,
         options: {
             tags: ['api'],
             validate: {
+                headers: Joi.object({
+                    'authorization': Joi.string().required()
+                }).unknown(),
                 payload: Joi.object().keys({
                     title: Joi.string().required(),
                     company: Joi.string().required()

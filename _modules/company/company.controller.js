@@ -2,20 +2,22 @@ const Company = require('./company.model');
 
 module.exports = {
     async create(req, h) {
-        // if(!request.payload.name) {
-        //     return h.response({
-        //         code: 1,
-        //         err: 'name is required'
-        //     }).code(550);
-        // }
-
         const company = new Company({
             name: req.payload.name,
             city: req.payload.city,
-            address: req.payload.address
+            address: req.payload.address,
+            user: req.auth.credentials.id
         });
 
-        const saved = await company.save();
+        const saved = await company.save()
+        .catch((err) => {
+            console.log('ERROR', 'COMPANY', 'CREATE');
+            console.log(err);
+            return h.response({
+                erro: true
+            }).code(550);
+        });
+
         return h.response(saved);
     },
     async find(req, h) {

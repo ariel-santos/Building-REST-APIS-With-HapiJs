@@ -3,17 +3,33 @@ const Joi = require('joi');
 
 module.exports = [
     {
-        path: '/api/users/signup',
+        path: '/users/signup',
         method: 'POST',
         handler: UserController.signup,
         options: {
             tags: ['api'],
             validate: {
                 payload: Joi.object().keys({
-                    email: Joi.string().required(),
+                    email: Joi.string().email().required(),
                     password: Joi.string().required(),
                 })
-            }
+            },
+            auth: false
         }
+    },
+    {
+        path: '/users/login',
+        method: 'POST',
+        handler: UserController.login,
+        config: {
+            tags: ['api'],
+            validate: {
+                payload: Joi.object().keys({
+                    email: Joi.string().email().required(),
+                    password: Joi.string().required()
+                })
+            },
+            auth: false
+        },
     }
 ];

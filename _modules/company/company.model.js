@@ -18,7 +18,12 @@ const CompanySchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Job'
         }
-    ]
+    ],
+    user: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    }
 });
 
 module.exports = mongoose.model('Company', CompanySchema);

@@ -9,20 +9,23 @@ const schema = Joi.object().keys({
 module.exports = [
     {
         method: 'POST',
-        path: '/api/companies',
+        path: '/companies',
         handler: CompanyController.create,
         options: {
             tags: ['api'],
-            description: 'List of companies',
+            description: 'Create company',
             notes: 'Returns a todo item by the id passed in the path',
             validate: {
-                payload: schema
+                payload: schema,
+                headers: Joi.object({
+                    'authorization': Joi.string().required()
+                }).unknown()
             }
         }
     },
     {
         method: 'GET',
-        path: '/api/companies',
+        path: '/companies',
         handler: CompanyController.find,
         options: {
             tags: ['api']
@@ -30,7 +33,7 @@ module.exports = [
     },
     {
         method: 'GET',
-        path: '/api/companies/{id}',
+        path: '/companies/{id}',
         handler: CompanyController.findOne,
         options:{
             tags: ['api'],
@@ -43,11 +46,14 @@ module.exports = [
     },
     {
         method: 'PUT',
-        path: '/api/companies/{id}',
+        path: '/companies/{id}',
         handler: CompanyController.update,
         options:{
             tags: ['api'],
             validate: {
+                headers: Joi.object({
+                    'authorization': Joi.string().required()
+                }).unknown(),
                 params: Joi.object().keys({
                     id: Joi.string().required()
                 })
@@ -56,11 +62,14 @@ module.exports = [
     },
     {
         method: 'DELETE',
-        path: '/api/companies/{id}',
+        path: '/companies/{id}',
         handler: CompanyController.delete,
         options:{
             tags: ['api'],
             validate: {
+                headers: Joi.object({
+                    'authorization': Joi.string().required()
+                }).unknown(),
                 params: Joi.object().keys({
                     id: Joi.string().required()
                 })

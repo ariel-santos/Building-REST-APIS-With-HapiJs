@@ -4,19 +4,22 @@ const CandidateController = require('./candidate.controller');
 module.exports = [
     {
         method: 'GET',
-        path: '/api/candidates',
+        path: '/candidates',
         handler: CandidateController.find,
         options: {
-            tags: ['api']
+            tags: ['api', 'Candidates']
         }
     },
     {
         method: 'POST',
-        path: '/api/candidates',
+        path: '/candidates',
         handler: CandidateController.create,
         options: {
-            tags: ['api'],
+            tags: ['api', 'Candidates'],
             validate: {
+                headers: Joi.object({
+                    'authorization': Joi.string().required()
+                }).unknown(),
                 payload: Joi.object().keys({
                     first_name: Joi.string().required(),
                     last_name: Joi.string().required(),
